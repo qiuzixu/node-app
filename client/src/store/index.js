@@ -1,22 +1,22 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
+import Vuex from 'vuex'//token内容 存储到vuex
 
 Vue.use(Vuex)
 
 const types = {
-  SET_AUTHENTICATED:"SET_AUTHENTICATED",
-  SET_USER:"SET_USER"
+  SET_AUTHENTICATED:"SET_AUTHENTICATED",//设置一个名字
+  SET_USER:"SET_USER" 
 }
 
 const state ={
-  isAuthenticated:false,
+  isAuthenticated:false,//是否授权
   user:{}
 }
 const getters = {
   isAuthentivated:state => state.isAuthenticated,
   user:state =>state.user
 }
-const mutations = {
+const mutations = {//更改状态信息
   [types.SET_AUTHENTICATED](state,isAuthenticated){
     if(isAuthenticated) state.isAuthenticated = isAuthenticated;
     else state.isAuthenticated = false;
@@ -40,12 +40,8 @@ const actions ={
 }
 
 export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  }
+  state,
+  getters,
+  mutations,
+  actions
 })

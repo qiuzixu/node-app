@@ -3,9 +3,13 @@ import VueRouter from 'vue-router'
 // import Home from '../views/Home.vue'
 import Index from '../views/Index.vue'
 import Register from '../views/Register.vue'
-// import Login from '../views/Login.vue'
+import Login from '../views/Login.vue'
 import NotFound from '../views/404.vue'
-// import Home from '../views/Home.vue'
+import Home from '../views/Home.vue'
+import InfoShow from '../views/InfoShow.vue'
+import FundList from '../views/FundList.vue'
+
+
 
 Vue.use(VueRouter)
 
@@ -18,21 +22,25 @@ const routes = [
     path: '/index',
     name: 'index',
     component: Index,
-    /* children:[
+     children:[
       {path:'',component:Home},
-      {path:'',name:"home",component:Home} */
-    // ]
+      {path:'/home',name:"home",component:Home},
+      {path:'/infoshow',name:"infoshow",component:InfoShow},
+      {path:'/fundlist',name:"fundlist",component:FundList},
+
+
+    ]
   },
   {
     path: '/register',
     name: 'register',
     component: Register
   },
-  // {
-  //   path: '/login',
-  //   name: 'login',
-  //   component: Login
-  // },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login
+  },
   {
     path: '*',
     name: '/404',
@@ -47,14 +55,14 @@ const router = new VueRouter({
   routes
 })
 
-//路由守卫
+//路由守卫  在没注册登录之前确保只能进行登录注册页面
 
-// router.beforeEach((to,from,next) => {
-//   const isLogin = localStorage.eleToken ? true : false;
-//   if(to.path == '/login' || to.path == 'register'){
-//     next();
-//   }else{
-//     isLogin ? next() : next('/login')
-//   }
-// })
-export default router
+router.beforeEach((to,from,next) => {
+  const isLogin = localStorage.eleToken ? true : false;
+  if(to.path == '/login' || to.path == '/register'){
+    next();
+  }else{
+    isLogin ? next() : next('/login')
+  }
+})
+export default router;

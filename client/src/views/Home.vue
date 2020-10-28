@@ -21,5 +21,5 @@
         /* 规定两个并排带边框的盒子 */
         padding-top: 100px;
     }
-</style>>
+</style>
 

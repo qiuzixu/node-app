@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import jwt_decode from 'jwt_decode'
+import jwt_decode from 'jwt-decode'
 export default {
     name:'app',
     components:{},

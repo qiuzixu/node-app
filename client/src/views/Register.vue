@@ -3,8 +3,9 @@
         <section class="form_container">
             <div class="manage_tip">
                 <span class="title">在线后台管理系统</span>
-                <el-form :model="registerUser" :rules="rules" ref="registerFrom" 
-                label-width="80px" class="registrFrom">
+                <el-form :model="registerUser" :rules="rules" ref="registerForm" 
+                label-width="80px" class="registerForm">
+                <!-- :model绑定表单 ref获取到表单的内容 -->
                     <el-form-item label="用户名" prop="name">
                         <el-input  v-model="registerUser.name" placeholder="请输入用户名"></el-input>
                     </el-form-item>
@@ -27,7 +28,7 @@
                     </el-form-item>
                    
                     <el-form-item>
-                        <el-button type="primary" class="submit_btn" @click="submintForm('registerForm')">注册</el-button>
+                        <el-button type="primary" class="submit_btn" @click="submitForm('registerForm')">注册</el-button>
                     </el-form-item>
 </el-form>
             </div>
@@ -111,12 +112,12 @@ export default {
         }
     },
     methods:{
-        submitFrom(forName){
+        submitForm(formName){
             // console.log(forname);//registerForm
             this.$refs[formName].validate((valid) => {
           if (valid) {
             // alert('submit!');
-            this.$axios.post("/apu/user/register",this.registerUser)
+            this.$axios.post("/api/user/register",this.registerUser)
             .then(res =>{
                 //注册成功
                 this.$message({
@@ -126,7 +127,7 @@ export default {
             })
             this.$router.push('/login')
           } else {
-            console.log('error submit!!');
+            // console.log('error submit!!');
             return false;
           }
         });

@@ -2,12 +2,13 @@
     <div class="head-nav">
         <el-row>
             <el-col :span='6' class="logo-container">
+                <!-- 占6列 -->
                 <img src="../assets/logo.png" class="logo" alt="">
-                <span class="title">米修在线后台管理系统</span>
+                <span class="title">在线后台管理系统</span>
             </el-col>
             <el-col :sapn='6' class="user">
                 <div class="userinfo">
-                    <img src="user.avatar" class='avatar' alt="">
+                    <img :src="user.avatar" class='avatar' alt="">
                     <div class="welcome">
                         <p class="name comename">欢迎</p>
                         <p class="name avatarname">{{user.name}}</p>

@@ -1,21 +1,24 @@
 import axios from 'axios';
 import { Message,Loading } from 'element-ui';
-import router from './router'
+import router from './router/index'
 let loading ;
 function startLoading(){
-    Loading = Loading.service({
+    loading = Loading.service({
         lock:true,
         text:"拼命加载中...",
         background:'rgba(0,0,0,0,7)'
     })//(options);//options自己设置的一个对象
-
+    return loading;
 }
+// console.log(loading);
 
 function endLoading(){
     loading.close();
+    // console.log(loading);
 }
 //请求拦截
-axios.interceptors.request.use(config =>{
+axios.interceptors.request.use(
+    config =>{
     //加载动画
     startLoading();
 
@@ -42,7 +45,7 @@ axios.interceptors.request.use(response =>{
 
     //获取错误状态码
     const { status } = error.response;
-    if(status ==401 ){
+    if(status == 401 ){
         Message.error('Token失效，请重新登录！');
         //清除token
         localStorage.removeItem('eleToken');

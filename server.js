@@ -27,6 +27,9 @@ mongoose.connect(db,{useNewUrlParser:true,useUnifiedTopology:true })
 
                 
 //passport 初始化
+//passport 初始化
+//passport 初始化
+
 app.use(passport.initialize());
 require("./config/passport")(passport);
 //把文件传递给上面定义的passport

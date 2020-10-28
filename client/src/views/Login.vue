@@ -1,23 +1,23 @@
  <template>
-    <div class="register">
+    <div class="login">
         <section class="form_container">
             <div class="manage_tip">
                 <span class="title">在线后台管理系统</span>
-                <el-form :model="loginUser" :rules="rules" ref="loginFrom" 
-                label-width="80px" class="loginFrom">
+                <el-form :model="loginUser" :rules="rules" ref="loginForm" 
+                label-width="80px" class="loginForm">
                   
                      <el-form-item label="邮箱" prop="email">
                         <el-input  v-model="loginUser.email" placeholder="请输入email"></el-input>
                     </el-form-item>
                      <el-form-item label="密码" prop="password">
                         <el-input type="password" v-model="loginUser.password" placeholder="请输入密码"></el-input>
-                   
+                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" class="submit_btn" @click="submintForm('loginForm')">登录</el-button>
+                        <el-button type="primary" class="submit_btn" @click="submitForm('loginForm')">登录</el-button>
                     </el-form-item>
 
                     <div class="tiparea">
-                        <p>还没有账号？现在<router-link to='/register'>注册</p>
+                        <p>还没有账号？现在<router-link to='/register'>注册</router-link></p>
                     </div>
 </el-form>
             </div>
@@ -26,7 +26,9 @@
 </template>
 
 <script>
-import jwt_decode from 'jwt_decode'
+// const jwt_decode = require('jwt-decode')
+import jwt_decode from 'jwt-decode';
+// import jwt_decode from 'jwt_decode';
 export default {
     name:'login',
     components:{},
@@ -62,30 +64,33 @@ export default {
         };
     },
     methods:{
-        submitFrom(forName){
+        submitForm(formName){
             // console.log(forname);//registerForm
             this.$refs[formName].validate((valid)=> {
           if (valid) {
             // alert('submit!');
-            this.$axios.post("/apu/user/login",this.loginUser)
+            this.$axios.post("/api/user/login",this.loginUser)
             .then(res =>{
-                console.log(res);
+                // console.log(res);
                 //如果登录成功 登录token
-                // const {token} = res.data;
+                const {token} = res.data;
                 //存储到ls
-                // localStorage.setItem('eleToken',token)
+                localStorage.setItem('eleToken',token)
+
+
 
                 //解析token
-                // const decoded = jwt_decode(token);
+                const decoded = jwt_decode(token);
                 // console.log(decode);
+                
+                this.$router.push('/index');
 
                 //token存储到vuex中
-                // this.$store.dispath("setAuthenticated",!this.isEmpty(decoded))
-                // this.$store.dispath("setUser",decoded)
+                this.$store.dispath("setAuthenticated",!this.isEmpty(decoded))
+                this.$store.dispath("setUser",decoded)
 
 
             });
-                this.$router.push('/index');
 
         }
         });
@@ -128,7 +133,7 @@ export default {
         font-size: 26px;
         color: #fff;
     }
-    .registerForm{
+    .loginForm{
         margin-top: 20px;
         background-color:#fff;
         padding: 20px 40px 20px 20px;
